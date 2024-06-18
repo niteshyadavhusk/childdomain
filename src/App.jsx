@@ -8,7 +8,8 @@ function App() {
   const [count, setCount] = useState(0);
   useEffect(() => {
     const messageHandler = (event) => {
-      if (event.origin !== 'http://localhost:59006/Dashboard/Summary') return; // Ensure this matches the parent origin
+      console.log('Message received:', event);
+      if (event.origin !== 'http://localhost:59006/') return; // Ensure this matches the parent origin
 
       if (event.data === 'logout') {
         console.log('Logout message received');
@@ -23,7 +24,7 @@ function App() {
       }
 
       // Send a message back to the parent
-      window.opener.postMessage('Cookies processed', 'http://localhost:59006/Dashboard/Summary'); // Ensure this matches the parent origin
+      window.opener.postMessage('Cookies processed', 'http://localhost:59006/'); // Ensure this matches the parent origin
     };
 
     window.addEventListener('message', messageHandler);
@@ -33,8 +34,11 @@ function App() {
     };
   }, []);
 
-  console.log(document.cookie);
-  console.log("helo")
+  useEffect(() => {
+    console.log(document.cookie);
+  }, []);
+
+  console.log('Component rendered');
   return (
     <Form />
   )
