@@ -7,9 +7,9 @@ import { Form } from './components/Form'
 function App() {
   const [count, setCount] = useState(0);
   useEffect(() => {
-
     const messageHandler = (event) => {
-      if (event.origin !== 'http://localhost:59006') return;
+      if (event.origin !== 'http://localhost:59006/Dashboard/Summary') return; // Ensure this matches the parent origin
+
       if (event.data === 'logout') {
         console.log('Logout message received');
         // Remove cookies by setting them to expire
@@ -17,14 +17,13 @@ function App() {
           document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
         console.log('Cookies removed');
+      } else {
+        const cookies = event.data;
+        console.log('Cookies from parent:', cookies);
       }
 
-      const cookies = event.data;
-      console.log(cookies)
-      console.log('Cookies from parent:', cookies);
-
-
-      window.opener.postMessage('Cookies received', 'http://localhost:59006');
+      // Send a message back to the parent
+      window.opener.postMessage('Cookies processed', 'http://localhost:59006/Dashboard/Summary'); // Ensure this matches the parent origin
     };
 
     window.addEventListener('message', messageHandler);
@@ -32,8 +31,6 @@ function App() {
     return () => {
       window.removeEventListener('message', messageHandler);
     };
-
-
   }, []);
 
   console.log(document.cookie);
