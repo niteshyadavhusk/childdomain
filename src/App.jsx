@@ -9,7 +9,8 @@ function App() {
   useEffect(() => {
     const messageHandler = (event) => {
       console.log('Message received:', event);
-      if (event.origin !== 'http://localhost:59006/') return; // Ensure this matches the parent origin
+      
+      if (event.origin !== 'http://localhost:59006') return; // Ensure this matches the parent origin
 
       if (event.data === 'logout') {
         console.log('Logout message received');
@@ -24,7 +25,7 @@ function App() {
       }
 
       // Send a message back to the parent
-      window.opener.postMessage('Cookies processed', 'http://localhost:59006/'); // Ensure this matches the parent origin
+      window.opener.postMessage('Cookies processed', 'http://localhost:59006/Dashboard/Summary'); // Ensure this matches the parent origin
     };
 
     window.addEventListener('message', messageHandler);
