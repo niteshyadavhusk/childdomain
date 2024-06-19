@@ -18,11 +18,12 @@ function App() {
         document.cookie.split(";").forEach((c) => {
           document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
         });
+        Cookies.set("")
         console.log('Cookies removed');
       } else {
         const cookies = event.data;
         console.log('Cookies from parent:', cookies);
-        Cookies.set(name ,cookies)
+        Cookies.set("data" ,cookies)
       }
 
       // Send a message back to the parent
