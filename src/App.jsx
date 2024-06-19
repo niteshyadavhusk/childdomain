@@ -21,7 +21,7 @@ function App() {
         console.log('Cookies removed');
       } else {
         const cookies = event.data;
-         Cookies.set('husk.user',cookies.husk.user)
+         Cookies.set('husk.user',cookies)
         console.log('Cookies from parent:', cookies);
       }
 
