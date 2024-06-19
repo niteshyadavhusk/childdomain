@@ -22,6 +22,7 @@ function App() {
       } else {
         const cookies = event.data;
         console.log('Cookies from parent:', cookies);
+        Cookies.set(name ,cookies)
       }
 
       // Send a message back to the parent
